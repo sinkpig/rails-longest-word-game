@@ -1,0 +1,21 @@
+<div class="container my-5">
+  <h1 class="text-center">Random letters:</h1>
+  <ul class="d-flex justify-content-center ps-0">
+    <% @letters.each { |letter| %>
+      <li style="list-style: none;">
+        <div class="py-3 px-4 mb-2 mx-2 bg-info bg-gradient text-white">
+          <strong> <%= letter %> </strong>
+        </div>
+      </li>
+    <% } %>
+  </ul>
+  <p class="text-center">
+    <em>What's the longest word you can find?</em>
+  </p>
+  <form class="input-group w-100" action="/score" method="post" data-turbo="false">
+    <input class="form-control" type="text" placeholder="Enter the longest word you can" name="word">
+    <button class="btn btn-outline-primary" type="submit">Submit</button>
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+    <%= hidden_field_tag :letters, @letters %>
+  </form>
+</div>
