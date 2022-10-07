@@ -6,7 +6,10 @@ require 'json'
 class GamesController < ApplicationController
   def new
     # @letters = ('A'..'Z').to_a.sample[10]
-    @letters = (0...10).map { ('A'..'Z').to_a[rand(26)] }
+    @letters = (0...8).map { ('A'..'Z').to_a[rand(26)] }
+    vowels = (0...2).map { %w[A E I O U][rand(5)] }
+    # vowels.each { |vowel| vowel.to_s << @letters }
+    @letters.concat vowels
   end
 
   def score
