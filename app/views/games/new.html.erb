@@ -1,4 +1,4 @@
-<div class="container my-5">
+<div class="container my-5 text-center">
   <h1 class="text-center">Random letters:</h1>
   <ul class="d-flex justify-content-center ps-0">
     <% @letters.each { |letter| %>
@@ -12,10 +12,11 @@
   <p class="text-center">
     <em>What's the longest word you can find?</em>
   </p>
-  <form class="input-group w-100" action="/score" method="post" data-turbo="false">
+  <form class="input-group w-100 mb-3" action="/score" method="post" data-turbo="false">
     <input class="form-control" type="text" placeholder="Enter the longest word you can" name="word">
     <button class="btn btn-outline-primary" type="submit">Submit</button>
     <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
     <%= hidden_field_tag :letters, @letters %>
   </form>
+  <%= link_to "Reroll the words", new_path %>
 </div>

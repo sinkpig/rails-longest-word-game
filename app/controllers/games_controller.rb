@@ -5,24 +5,24 @@ require 'json'
 
 class GamesController < ApplicationController
   def new
-    # @letters = ('A'..'Z').to_a.sample[10]
     @letters = (0...8).map { ('A'..'Z').to_a[rand(26)] }
     vowels = (0...2).map { %w[A E I O U][rand(5)] }
-    # vowels.each { |vowel| vowel.to_s << @letters }
     @letters.concat vowels
   end
 
   def score
     @letters = params[:letters].split(' ')
     @word = (params[:word] || '').upcase
-    @score = "Sorry but #{@word} isn't a valid english word"
+    @score = 0
+    @feedback = "Sorry but #{@word} isn't a valid english word"
 
     unless included?(@word, @letters)
-      @score = "Sorry but #{@word} can't be built out of #{@letters.join(', ')}"
+      @feedback = "Sorry but #{@word} can't be built out of #{@letters.join(', ')}"
     end
 
     if included?(@word, @letters) && word_exists?(@word)
-      @score = "Congratulations #{@word} is a valid english word and is part of the grid!"
+      @feedback = "Congratulations #{@word} is a valid english word and is part of the grid!"
+      @score += 10 * @word.length
     end
   end
 
